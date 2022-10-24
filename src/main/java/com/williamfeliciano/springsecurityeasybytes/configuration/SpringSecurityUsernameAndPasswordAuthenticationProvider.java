@@ -58,8 +58,8 @@ public class SpringSecurityUsernameAndPasswordAuthenticationProvider implements 
     }
 
     @Override
-    public boolean supports(Class<?> authentication) {
+    public boolean supports(Class<?> authenticationType) {
         // We will support the username password and authentication
-        return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
+        return authenticationType.equals(UsernamePasswordAuthenticationToken.class);
     }
 }

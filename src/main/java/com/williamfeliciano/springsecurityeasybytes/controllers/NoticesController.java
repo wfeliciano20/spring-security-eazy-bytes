@@ -18,7 +18,7 @@ public class NoticesController {
     private final NoticeRepository noticeRepository;
 
     @GetMapping("/notices")
-    public ResponseEntity<List<Notice>> getNotices(String input) {
+    public ResponseEntity<List<Notice>> getNotices() {
 
         List<Notice> notices = noticeRepository.findAllActiveNotices();
         if(notices != null){

@@ -2,11 +2,10 @@ package com.williamfeliciano.springsecurityeasybytes.controllers;
 
 
 import com.williamfeliciano.springsecurityeasybytes.models.Accounts;
+import com.williamfeliciano.springsecurityeasybytes.models.Customer;
 import com.williamfeliciano.springsecurityeasybytes.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 
@@ -18,9 +17,9 @@ public class AccountController {
         this.accountRepository = accountRepository;
     }
 
-    @GetMapping("/myAccount")
-    public Accounts getAccountDetails(@RequestParam int id) {
-        Accounts accounts = accountRepository.findByCustomerId(id);
+    @PostMapping("/myAccount")
+    public Accounts getAccountDetails(@RequestBody Customer customer) {
+        Accounts accounts = accountRepository.findByCustomerId(customer.getId());
         if (accounts != null) {
             return accounts;
         } else {

@@ -1,11 +1,10 @@
 package com.williamfeliciano.springsecurityeasybytes.controllers;
 
 import com.williamfeliciano.springsecurityeasybytes.models.Cards;
+import com.williamfeliciano.springsecurityeasybytes.models.Customer;
 import com.williamfeliciano.springsecurityeasybytes.repository.CardsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,9 +14,9 @@ public class CardsController {
 
     private final CardsRepository cardsRepository;
 
-    @GetMapping("/myCards")
-    public List<Cards> getCardDetails(@RequestParam int id){
-        List<Cards> cards = cardsRepository.findByCustomerId(id);
+    @PostMapping("/myCards")
+    public List<Cards> getCardDetails(@RequestBody Customer customer){
+        List<Cards> cards = cardsRepository.findByCustomerId(customer.getId());
         if(cards != null){
             return cards;
         }else{
