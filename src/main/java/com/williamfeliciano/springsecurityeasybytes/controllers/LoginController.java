@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +31,6 @@ public class LoginController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Customer customer){
-        System.out.println(customer);
         Customer savedCustomer;
         ResponseEntity<String> response = null;
         try{
@@ -51,8 +51,8 @@ public class LoginController {
     }
 
     @RequestMapping("/user")
-    public Customer getUserDetailsAfterLogin(Principal user){
-        List<Customer> customers = customerRepository.findByEmail(user.getName());
+    public Customer getUserDetailsAfterLogin(Authentication authentication){
+        List<Customer> customers = customerRepository.findByEmail(authentication.getName());
         if(customers.size()> 0){
             return customers.get(0);
         }else{

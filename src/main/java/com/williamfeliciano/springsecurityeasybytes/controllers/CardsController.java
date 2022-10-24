@@ -4,19 +4,23 @@ import com.williamfeliciano.springsecurityeasybytes.models.Cards;
 import com.williamfeliciano.springsecurityeasybytes.models.Customer;
 import com.williamfeliciano.springsecurityeasybytes.repository.CardsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 public class CardsController {
 
     private final CardsRepository cardsRepository;
+    @Autowired
+    public CardsController(CardsRepository cardsRepository) {
+        this.cardsRepository = cardsRepository;
+    }
 
-    @PostMapping("/myCards")
-    public List<Cards> getCardDetails(@RequestBody Customer customer){
-        List<Cards> cards = cardsRepository.findByCustomerId(customer.getId());
+    @GetMapping("/myCards")
+    public List<Cards> getCardDetails(@RequestParam int id){
+        List<Cards> cards = cardsRepository.findByCustomerId(id);
         if(cards != null){
             return cards;
         }else{

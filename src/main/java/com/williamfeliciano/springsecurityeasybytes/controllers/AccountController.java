@@ -17,9 +17,9 @@ public class AccountController {
         this.accountRepository = accountRepository;
     }
 
-    @PostMapping("/myAccount")
-    public Accounts getAccountDetails(@RequestBody Customer customer) {
-        Accounts accounts = accountRepository.findByCustomerId(customer.getId());
+    @GetMapping("/myAccount")
+    public Accounts getAccountDetails(@RequestParam int id) {
+        Accounts accounts = accountRepository.findByCustomerId(id);
         if (accounts != null) {
             return accounts;
         } else {
